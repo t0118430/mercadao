@@ -1,0 +1,34 @@
+name: NotifierTrabalhaBoi
+on:
+  push:
+  schedule:
+    - cron: "*/5 * * * *"
+
+env:
+  URL: ${{secrets.URL}}
+  URL_AVAILABLE: ${{secrets.URL_AVAILABLE}}
+  TOPIC: ${{secrets.TOPIC}}
+  USERNAME: ${{secrets.USERNAME}}
+  PASSWORD: ${{secrets.PASSWORD}}
+
+jobs:
+  build:
+    environment: PROD
+    runs-on: ubuntu-latest
+    steps:
+      - name: SCM Checkout
+        uses: actions/checkout@v3
+      - name: Show env variables
+        run: |
+          env
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run Python Script
+        id: py-script
+        run: |
+          python mercadao.py
