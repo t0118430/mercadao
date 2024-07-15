@@ -36,6 +36,6 @@ jobs:
         run: |
           git config user.name "Pipeline Automation"
           git config user.email "github_actions@github.com"
-          git add results.log
+          git add -A
           git commit -m "Added results from build $GITHUB_RUN_NUMBER to logfile"
           git push
