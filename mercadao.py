@@ -63,4 +63,4 @@ else:
 
 
 with open('results.log', 'a') as file:
-    file.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: {cenas}")
+    file.write(f"{cenas}")
