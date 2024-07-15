@@ -62,4 +62,4 @@ else:
 
 
 with open('results.log', 'a') as file:
-    file.write(f"{datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {cenas}")
+    file.write(f"{datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {cenas} /n")
