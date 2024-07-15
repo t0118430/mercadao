@@ -7,9 +7,9 @@ import sys
 midnight_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
 formatted_date = midnight_utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
 
-url_raw = os.getenv('URL')
-url = url_raw + formatted_date
-url_available = os.getenv('URL_AVAILABLE')
+url = os.getenv('URL')
+url_raw = os.getenv('URL_AVAILABLE')
+url_available = url_raw + formatted_date
 topic = os.getenv('TOPIC')
 username = os.getenv('USERNAME')
 password = os.getenv('PASSWORD')
@@ -25,7 +25,7 @@ response_login = requests.request("POST", url, headers=headers_login, data=paylo
 if response_login.status_code == 200:
     print("Accessed target page successfully")
 else:
-    print(f"Failed to access target page {response_login.status_code} url: {url}")
+    print(f"Failed to access target page {response_login.status_code} url:{url}")
     sys.exit(1)
 
 headers_available = {
