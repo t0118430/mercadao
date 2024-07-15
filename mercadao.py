@@ -54,13 +54,12 @@ data = response.json()
 # Check if datatable-selection tag is found
 if data['count'] != 0:
     print("cenas")
-    cenas = "cenas"
+    cenas = "Tem"
     send_notification(topic)    
 else:
     cenas = "Não tem"
     print("Não tem")
-    sys.exit(1)
 
 
 with open('results.log', 'a') as file:
-    file.write(f"{cenas}")
+    file.write(f"{datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {cenas}")
