@@ -1,6 +1,7 @@
 import requests
 from datetime import datetime
 import os
+import sys
 
 # Example URL (replace with the actual URL)
 midnight_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -24,8 +25,8 @@ response_login = requests.request("POST", url, headers=headers_login, data=paylo
 if response_login.status_code == 200:
     print("Accessed target page successfully")
 else:
-    print(f"Failed to access target page {response_login.status_code}")
-    exit()
+    print(f"Failed to access target page {response_login.status_code} url: {url}")
+    sys.exit(1)
 
 headers_available = {
   'authorization': f'{response_login.json()['id']}'
@@ -37,7 +38,7 @@ if response.status_code == 200:
     print("Accessed target page successfully respose")
 else:
     print(f"Failed response to access target page {response.status_code}")
-    exit()
+    sys.exit(1)
 
 def send_notification(topic):    
     try:
@@ -46,6 +47,7 @@ def send_notification(topic):
         print("Email sent successfully")
     except Exception as e:
         print(f"Failed to send email: {e}")
+        sys.exit(1)
 
 data = response.json()
 
@@ -57,6 +59,7 @@ if data['count'] != 0:
 else:
     cenas = "Não tem"
     print("Não tem")
+    sys.exit(1)
 
 
 with open('results.log', 'a') as file:
