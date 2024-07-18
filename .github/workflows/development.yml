@@ -5,15 +5,15 @@ on:
       - development
   workflow_dispatch:
 
-env:
-  URL: ${{secrets.URL}}
-  URL_AVAILABLE: ${{secrets.URL_AVAILABLE}}
-  TOPIC: ${{secrets.TOPIC}}
-  USERNAME: ${{secrets.USERNAME}}
-  PASSWORD: ${{secrets.PASSWORD}}
-
 jobs:
   build:
+    environment: DEV
+    env:
+      URL: ${{secrets.URL}}
+      URL_AVAILABLE: ${{secrets.URL_AVAILABLE}}
+      TOPIC: ${{secrets.TOPIC}}
+      USERNAME: ${{secrets.USERNAME}}
+      PASSWORD: ${{secrets.PASSWORD}}
     runs-on: ubuntu-latest
     steps:
       - name: SCM Checkout
