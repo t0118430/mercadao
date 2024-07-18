@@ -62,7 +62,7 @@ if data['count'] != 0:
     cenas = data
     orders_to_keep = []
     orders = []
-    with open('example.txt', 'r') as file:
+    with open('results.log', 'r') as file:
         lines = file.readlines()
         lines = [line.strip() for line in orders]
     for item in data['orders']:      
