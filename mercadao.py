@@ -49,13 +49,30 @@ def send_notification(topic):
         print(f"Failed to send email: {e}")
         sys.exit(1)
 
+
+def writeTofile(filename, list):
+    for item in list:
+        with open(filename, 'w') as file:
+            file.write(f"{item}\n")
+
 data = response.json()
 
-# Check if datatable-selection tag is found
 if data['count'] != 0:
     print("cenas")
     cenas = data
-    send_notification(topic)    
+    orders_to_keep = []
+    orders = []
+    with open('example.txt', 'r') as file:
+        lines = file.readlines()
+        lines = [line.strip() for line in orders]
+    for item in data['orders']:      
+        order_id = data['orders']['identifier']  
+        orders.append(order_id)
+        if order_id not in lines:
+            orders_to_keep.append(order_id)  
+            send_notification(topic)
+    filtered_orders = [order for order in orders if order in orders_to_keep]
+    writeTofile('order_tack', filtered_orders)
 else:
     cenas = "Não tem"
     print("Não tem")
