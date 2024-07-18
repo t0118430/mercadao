@@ -37,7 +37,7 @@ response = requests.request("GET", url_available, headers=headers_available)
 if response.status_code == 200:
     print("Accessed target page successfully respose")
 else:
-    print(f"Failed response to access target page {response.status_code}")
+    print(f"Failed response to access target page {response.status_code} url: {url_available}")
     sys.exit(1)
 
 def send_notification(topic):    
