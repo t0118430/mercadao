@@ -54,7 +54,7 @@ data = response.json()
 # Check if datatable-selection tag is found
 if data['count'] != 0:
     print("cenas")
-    cenas = "Tem"
+    cenas = data
     send_notification(topic)    
 else:
     cenas = "Não tem"
