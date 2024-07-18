@@ -66,7 +66,7 @@ if data['count'] != 0:
         lines = file.readlines()
         lines = [line.strip() for line in orders]
     for item in data['orders']:      
-        order_id = data['orders']['identifier']  
+        order_id = item['identifier']  
         orders.append(order_id)
         if order_id not in lines:
             orders_to_keep.append(order_id)  
