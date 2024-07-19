@@ -51,7 +51,7 @@ def send_notification(topic):
 
 data = response.json()
 
-if data['count'] == 0:
+if data['count'] != 0:
     try:
         print("cenas")
         cenas = data
