@@ -49,30 +49,15 @@ def send_notification(topic):
         print(f"Failed to send email: {e}")
         sys.exit(1)
 
-
-def writeTofile(filename, list):
-    for item in list:
-        with open(filename, 'w') as file:
-            file.write(f"{item}\n")
-
 data = response.json()
 
 if data['count'] != 0:
-    print("cenas")
-    cenas = data
-    orders_to_keep = []
-    orders = []
-    with open('order_track.txt', 'r') as file:
-        lines = file.readlines()
-        lines = [line.strip() for line in orders]
-    for item in data['orders']:  
-        order_id = item['identifier']  
-        orders.append(order_id)
-        if order_id not in lines:
-            orders_to_keep.append(order_id)  
-            send_notification(topic)
-    filtered_orders = [order for order in orders if order in orders_to_keep]
-    writeTofile('order_tack', filtered_orders)
+    try:
+        print("cenas")
+        cenas = data
+        send_notification(topic)
+    except Exception as e:
+        print(f"Failed to send email: {e}")
 else:
     cenas = "Não tem"
     print("Não tem")
