@@ -69,6 +69,8 @@ if data['count'] != 0:
     orders = []
     with open('order_track.txt', 'r') as file:
         lines = file.readlines()
+    
+    print("Output from read file:", lines)
 
     if lines.count != 0:
         current_orders = [int(line.strip()) for line in lines]
