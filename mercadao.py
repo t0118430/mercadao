@@ -7,12 +7,12 @@ import sys
 midnight_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
 formatted_date = midnight_utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
 
-url = "http://localhost:5000/token"
-url_raw = "localhost:5000"
-url_available = "http://localhost:5000/orders"
-topic = "trabalhaboidevizUmS9N1lPsQJpN"
-username = "os.getenv('USERNAME')"
-password = "os.getenv('PASSWORD')"
+url = os.getenv('URL')
+url_raw = os.getenv('URL_AVAILABLE')
+url_available = url_raw + formatted_date
+topic = os.getenv('TOPIC')
+username = os.getenv('USERNAME')
+password = os.getenv('PASSWORD')
 
 payload_login = f"{{\"email\":\"{username}\",\"password\":\"{password}\"}}"
 headers_login = {
@@ -86,7 +86,7 @@ if data['count'] != 0:
     if orders_to_keep.count != 0:
         print("Sending notification....")
         send_notification(topic)
-        
+
     print("Orders to keep:", orders_to_keep)
     clear_file_content('order_track.txt')
     writeTofile('order_track.txt', orders_to_keep)
