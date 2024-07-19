@@ -74,7 +74,8 @@ if data['count'] != 0:
             orders_to_keep.append(order_id)  
             send_notification(topic)
     filtered_orders = [order for order in orders if order in orders_to_keep]
-    writeTofile('order_tack', filtered_orders)
+    print(filtered_orders)
+    writeTofile('order_track', filtered_orders)
 else:
     cenas = "Não tem"
     print("Não tem")
