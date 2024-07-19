@@ -49,11 +49,15 @@ def send_notification(topic):
         print(f"Failed to send email: {e}")
         sys.exit(1)
 
-
 def writeTofile(filename, list):
     for item in list:
-        with open(filename, 'w') as file:
+        with open(filename, 'a') as file:
             file.write(f"{item}\n")
+
+def clear_file_content(file_path):
+    with open(file_path, 'w') as file:
+        # Opening a file in 'w' mode truncates the file and overwrites its content with nothing.
+        pass
 
 data = response.json()
 
@@ -75,6 +79,7 @@ if data['count'] != 0:
             send_notification(topic)
     filtered_orders = [order for order in orders if order in orders_to_keep]
     print(filtered_orders)
+    clear_file_content('order_track.txt')
     writeTofile('order_track.txt', filtered_orders)
 else:
     cenas = "Não tem"
