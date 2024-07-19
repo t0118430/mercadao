@@ -57,7 +57,7 @@ def writeTofile(filename, list):
 
 data = response.json()
 
-if data['count'] == 0:
+if data['count'] != 0:
     print("cenas")
     cenas = data
     orders_to_keep = []
