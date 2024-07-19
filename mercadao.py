@@ -7,12 +7,12 @@ import sys
 midnight_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
 formatted_date = midnight_utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
 
-url = os.getenv('URL')
-url_raw = os.getenv('URL_AVAILABLE')
-url_available = url_raw + formatted_date
-topic = os.getenv('TOPIC')
-username = os.getenv('USERNAME')
-password = os.getenv('PASSWORD')
+url = "http://localhost:5000/token"
+url_raw = "localhost:5000"
+url_available = "http://localhost:5000/orders"
+topic = "trabalhaboidevizUmS9N1lPsQJpN"
+username = "os.getenv('USERNAME')"
+password = "os.getenv('PASSWORD')"
 
 payload_login = f"{{\"email\":\"{username}\",\"password\":\"{password}\"}}"
 headers_login = {
@@ -44,7 +44,7 @@ def send_notification(topic):
     try:
         requests.post("https://ntfy.sh/"+topic, 
     data="Trabalha boi".encode(encoding='utf-8'))
-        print("Email sent successfully")
+        print("Notification sent successfully")
     except Exception as e:
         print(f"Failed to send email: {e}")
         sys.exit(1)
@@ -62,26 +62,34 @@ def clear_file_content(file_path):
 data = response.json()
 
 if data['count'] != 0:
-    print("cenas")
+    print("Processing orders...")
+
     cenas = data
-    orders_to_keep = []
+    
     orders = []
     with open('order_track.txt', 'r') as file:
         lines = file.readlines()
-        lines = [line.strip() for line in orders]
-        print(lines)
+
+    if lines.count != 0:
+        current_orders = [int(line.strip()) for line in lines]
+    print("Current orders:", current_orders)
+
+    orders_to_keep = []
     for item in data['orders']:  
         order_id = item['identifier']  
         orders.append(order_id)
-        print(f"antes do if {order_id}")
-        if order_id not in lines:
-            print("no if not in lines")
+        print(f"Processing order {order_id}...")
+        if order_id not in current_orders:
+            print("Sending notification....")
             orders_to_keep.append(order_id)  
-            send_notification(topic)
-    filtered_orders = [order for order in orders if order in orders_to_keep]
-    print(filtered_orders)
+            
+    if orders_to_keep.count != 0:
+        print("Sending notification....")
+        send_notification(topic)
+        
+    print("Orders to keep:", orders_to_keep)
     clear_file_content('order_track.txt')
-    writeTofile('order_track.txt', filtered_orders)
+    writeTofile('order_track.txt', orders_to_keep)
 else:
     cenas = "Não tem"
     print("Não tem")
