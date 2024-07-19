@@ -7,6 +7,7 @@ import sys
 midnight_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
 formatted_date = midnight_utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
 
+#envs
 url = os.getenv('URL')
 url_raw = os.getenv('URL_AVAILABLE')
 url_available = url_raw + formatted_date
@@ -14,32 +15,39 @@ topic = os.getenv('TOPIC')
 username = os.getenv('USERNAME')
 password = os.getenv('PASSWORD')
 
+#configs
 payload_login = f"{{\"email\":\"{username}\",\"password\":\"{password}\"}}"
 headers_login = {
   'Content-Type': 'text/plain'
 }
 
+#request
 response_login = requests.request("POST", url, headers=headers_login, data=payload_login)
 
 # Check if the page is accessible
+#log
 if response_login.status_code == 200:
     print("Accessed target page successfully")
 else:
     print(f"Failed to access target page {response_login.status_code} url:{url}")
     sys.exit(1)
 
+#config
 headers_available = {
   'authorization': f'{response_login.json()['id']}'
 }
 
+#resquest
 response = requests.request("GET", url_available, headers=headers_available)
 
+#log
 if response.status_code == 200:
     print("Accessed target page successfully response")
 else:
     print(f"Failed response to access target page {response.status_code} url: {url_available}")
     sys.exit(1)
 
+#class notifications
 def send_notification(topic):    
     try:
         requests.post("https://ntfy.sh/"+topic, 
@@ -49,21 +57,24 @@ def send_notification(topic):
         print(f"Failed to send email: {e}")
         sys.exit(1)
 
+#class to manage files
 def writeTofile(filename, list):
     for item in list:
         with open(filename, 'a') as file:
             file.write(f"{item}\n")
 
+#class to manage files
 def clear_file_content(file_path):
     with open(file_path, 'w') as file:
         # Opening a file in 'w' mode truncates the file and overwrites its content with nothing.
         pass
 
+#pass to method
 data = response.json()
 
+# processor
 if data['count'] != 0:
     print("Processing orders...")
-
     cenas = data
     
     orders = []
@@ -94,6 +105,6 @@ else:
     cenas = "Não tem"
     print("Não tem")
 
-
+# class to manage files
 with open('results.log', 'a') as file:
     file.write(f"{datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {cenas} \n")
