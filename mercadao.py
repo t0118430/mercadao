@@ -68,7 +68,9 @@ if data['count'] == 0:
     for item in data['orders']:  
         order_id = item['identifier']  
         orders.append(order_id)
+        print("antes do if")
         if order_id not in lines:
+            print("no if not in lines")
             orders_to_keep.append(order_id)  
             send_notification(topic)
     filtered_orders = [order for order in orders if order in orders_to_keep]
