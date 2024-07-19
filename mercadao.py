@@ -35,7 +35,7 @@ headers_available = {
 response = requests.request("GET", url_available, headers=headers_available)
 
 if response.status_code == 200:
-    print("Accessed target page successfully respose")
+    print("Accessed target page successfully response")
 else:
     print(f"Failed response to access target page {response.status_code} url: {url_available}")
     sys.exit(1)
