@@ -69,10 +69,11 @@ if data['count'] != 0:
     with open('order_track.txt', 'r') as file:
         lines = file.readlines()
         lines = [line.strip() for line in orders]
+        print(lines)
     for item in data['orders']:  
         order_id = item['identifier']  
         orders.append(order_id)
-        print("antes do if")
+        print(f"antes do if {order_id}")
         if order_id not in lines:
             print("no if not in lines")
             orders_to_keep.append(order_id)  
