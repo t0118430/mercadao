@@ -7,12 +7,12 @@ import sys
 midnight_utc = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
 formatted_date = midnight_utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
 
-url = os.getenv('URL')
-url_raw = os.getenv('URL_AVAILABLE')
-url_available = url_raw + formatted_date
-topic = os.getenv('TOPIC')
-username = os.getenv('USERNAME')
-password = os.getenv('PASSWORD')
+url = "http://localhost:5000/token"
+url_raw = "localhost:5000"
+url_available = "http://localhost:5000/orders"
+topic = "trabalhaboidevizUmS9N1lPsQJpN"
+username = "os.getenv('USERNAME')"
+password = "os.getenv('PASSWORD')"
 
 payload_login = f"{{\"email\":\"{username}\",\"password\":\"{password}\"}}"
 headers_login = {
@@ -67,6 +67,7 @@ if data['count'] != 0:
     cenas = data
     
     orders = []
+    flag = 0
     with open('order_track.txt', 'r') as file:
         lines = file.readlines()
     
@@ -76,21 +77,21 @@ if data['count'] != 0:
         current_orders = [int(line.strip()) for line in lines]
     print("Current orders:", current_orders)
 
-    orders_to_keep = []
     for item in data['orders']:  
         order_id = item['identifier']  
         orders.append(order_id)
         print(f"Processing order {order_id}...")
         if order_id not in current_orders:
-            print("Sending notification....")
-            orders_to_keep.append(order_id)  
-            
-    if orders_to_keep.count != 0:
+            current_orders.append(order_id)  
+            flag = 1
+    
+    if flag == 1:
         print("Sending notification....")
         send_notification(topic)
 
-    print("Orders to keep:", orders_to_keep)
     clear_file_content('order_track.txt')
+    orders_to_keep = [order for order in orders if order in current_orders]
+    print("Orders to keep:", orders_to_keep)
     writeTofile('order_track.txt', orders_to_keep)
 else:
     cenas = "Não tem"
