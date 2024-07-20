@@ -10,7 +10,7 @@ def mercadao():
 
     payload_login["email"] = setUp.username
     payload_login["password"] = setUp.password
-
+    print(f"url avalable {setUp.url}")
     #request
     response_login = requests.request("POST", setUp.url, headers=headers_login, data=payload_login)
 
