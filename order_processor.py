@@ -1,41 +1,45 @@
 from file_handler import FileHandler
 from notifier import Notifier
+import sys
+
+notificationService = Notifier()
+file_handler = FileHandler()
 
 class OrderProcessor:
-    def __init__(self, file_handler, notifier):
-        self.file_handler = file_handler
-        self.notifier = notifier
 
-    def process_orders(self, data):
+    def process_orders(self, data, topic):
         if data['count'] != 0:
-            print("Processing orders...")
-            
-            orders = []
-            self.file_handler.read_file()
+            try:
+                print("Processing orders...")                
+                orders = []
+                flag = 0
 
-            with open('order_track.txt', 'r') as file:
-                lines = file.readlines()
+                lines = file_handler.read_file()
 
-            if lines.count != 0:
-                current_orders = [int(line.strip()) for line in lines]
-            print("Current orders:", current_orders)
+                if lines.count != 0:
+                    current_orders = [int(line.strip()) for line in lines]
+                print("Current orders:", current_orders)
 
-            orders_to_keep = []
-            for item in data['orders']:  
-                order_id = item['identifier']  
-                orders.append(order_id)
-                print(f"Processing order {order_id}...")
-                if order_id not in current_orders:
+                for item in data['orders']:  
+                    order_id = item['identifier']  
+                    orders.append(order_id)
+                    print(f"Processing order {order_id}...")
+                    if order_id not in current_orders:
+                        current_orders.append(order_id)  
+                        flag = 1
+                
+                if flag == 1:
                     print("Sending notification....")
-                    orders_to_keep.append(order_id)  
-                    
-            if orders_to_keep.count != 0:
-                print("Sending notification....")
-                send_notification(topic)
+                    notificationService.send_notification(topic)
+                    file_handler.print_logs("Sent notification....")
 
-            print("Orders to keep:", orders_to_keep)
-            clear_file_content('order_track.txt')
-            writeTofile('order_track.txt', orders_to_keep)
+                file_handler.clear_file_content('order_track.txt')
+                orders_to_keep = [order for order in orders if order in current_orders]
+                print("Orders to keep:", orders_to_keep)
+                file_handler.writeTofile('order_track.txt', orders_to_keep)
+            except Exception as e:
+                print(f"Failed to process orders: {e}")
+                sys.exit(1)
         else:
-            cenas = "Não tem"
+            file_handler.print_logs("Não tem.")
             print("Não tem")        

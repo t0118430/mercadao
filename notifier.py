@@ -2,10 +2,8 @@ import requests
 import sys
 
 class Notifier:
-    def __init__(self, topic):
-        self.topic = topic
 
-    def send_notification(topic):    
+    def send_notification(self, topic):    
         try:
             requests.post("https://ntfy.sh/"+topic, 
                 data="Trabalha boi".encode(encoding='utf-8'))
