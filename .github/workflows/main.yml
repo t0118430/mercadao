@@ -10,13 +10,13 @@ on:
 jobs:
   build:
     environment: PROD
+    runs-on: ubuntu-latest
     env:
       URL: ${{secrets.URL}}
       URL_AVAILABLE: ${{secrets.URL_AVAILABLE}}
       TOPIC: ${{secrets.TOPIC}}
       USERNAME: ${{secrets.USERNAME}}
       PASSWORD: ${{secrets.PASSWORD}}
-    runs-on: ubuntu-latest
     steps:
       - name: SCM Checkout
         uses: actions/checkout@v3
