@@ -18,7 +18,7 @@ def mercadao():
     username = os.getenv('USERNAME')
     password = os.getenv('PASSWORD')
 
-    payload_login["email"] = username
+    payload_login["username"] = username
     payload_login["password"] = password
     print(f"url avalable {payload_login}")
     print(f"url avalable {headers_login}")
