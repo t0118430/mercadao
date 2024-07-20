@@ -22,6 +22,7 @@ def mercadao():
         print(f"Failed to access target page {response_login.status_code} url:{setUp.url}")
         sys.exit(1)
 
+    print(f"url avalable {setUp.url_available}")
     #resquest
     response = requests.request("GET", setUp.url_available, headers=headers_available)
 
