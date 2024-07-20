@@ -2,23 +2,21 @@ import requests
 import sys
 from specs import payload_login, headers_login, headers_available
 from order_processor import OrderProcessor
-from datetime import datetime
-import os
 from configuration import Configuration
 
 def mercadao():
     order_processor = OrderProcessor()
     setup = Configuration()
 
-    #payload_login["email"] = setup.username
-    #payload_login["password"] = setup.password
-    #print(f"url avalable {payload_login}")
-    #print(f"url avalable {headers_login}")
+    print(setup.username)
+    print(setup.password)
+    payload = payload_login.replace("$USERNAME", setup.username).replace("$PASSWORD", setup.password)
 
-    payload_login = f"{{\"email\":\"{setup.username}\",\"password\":\"{setup.password}\"}}"
+    #payload_login = f"{{\"email\":\"{setup.username}\",\"password\":\"{setup.password}\"}}"
+    print(payload)
 
     #request
-    response_login = requests.request("POST", setup.url, headers=headers_login, data=payload_login)
+    response_login = requests.request("POST", setup.url, headers=headers_login, data=payload)
 
     # Check if the page is accessible
     #log
@@ -28,7 +26,9 @@ def mercadao():
         print(f"Failed to access target page {response_login.status_code} url:{setup.url}")
         sys.exit(1)
 
-    headers_available["authorization"] = response_login.json()["id"]
+    data = response_login.json()
+
+    headers_available["authorization"] = data["id"]
 
     print(f"url avalable {setup.url_available}")
     #resquest

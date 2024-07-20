@@ -1,5 +1,5 @@
-payload_login = {"email":"$USERNAME","password":"$PASSWORD"}
+payload_login = "{\"email\":\"$USERNAME\",\"password\":\"$PASSWORD\"}"
 
-headers_login = {"Content-Type": "text/plain"}
+headers_login = {"Content-Type": "application/json"}
 
 headers_available = {"authorization": "$SEASON"}
