@@ -8,8 +8,8 @@ class Configuration:
 
         #envs
         self.url = os.getenv('URL')
-        url_raw = os.getenv('URL_AVAILABLE')
-        self.url_available = url_raw + formatted_date
+        self.url_raw = os.getenv('URL_AVAILABLE')
+        self.url_available = self.url_raw + formatted_date
         self.topic = os.getenv('TOPIC')
         self.username = os.getenv('USERNAME')
         self.password = os.getenv('PASSWORD')
