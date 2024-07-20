@@ -1,5 +1,4 @@
 import requests
-import sys
 from specs import payload_login, headers_login, headers_available
 from order_processor import OrderProcessor
 from configuration import Configuration
@@ -10,8 +9,6 @@ def mercadao():
     setup = Configuration()
     logging = Log()
 
-    print(setup.username)
-    print(setup.password)
     payload = payload_login.replace("$USERNAME", setup.username).replace("$PASSWORD", setup.password)
 
     #request
@@ -23,8 +20,6 @@ def mercadao():
     data = response_login.json()
 
     headers_available["authorization"] = data["id"]
-
-    print(f"url avalable {setup.url_available}")
     #resquest
     response = requests.request("GET", setup.url_available, headers=headers_available)
 
