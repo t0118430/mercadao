@@ -1,4 +1,4 @@
-from file_handler import print_logs, clear_file_content, writeTofile, read_file
+from file_handler import print_logs, clear_file_content, write_to_file, read_file
 from notifier import send_notification
 import sys
 
@@ -27,11 +27,13 @@ def process_orders(data, topic):
                 print("Sending notification....")
                 send_notification(topic)
                 print_logs("Sent notification....")
+            else:
+                print_logs("Notification already sent....")
 
             clear_file_content('order_track.txt')
             orders_to_keep = [order for order in orders if order in current_orders]
             print("Orders to keep:", orders_to_keep)
-            writeTofile('order_track.txt', orders_to_keep)
+            write_to_file('order_track.txt', orders_to_keep)
         except Exception as e:
             print(f"Failed to process orders: {e}")
             sys.exit(1)

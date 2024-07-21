@@ -1,6 +1,6 @@
 from datetime import datetime
 
-def writeTofile(filename, list):
+def write_to_file(filename, list):
     for item in list:
         with open(filename, 'a') as file:
             file.write(f"{item}\n")
