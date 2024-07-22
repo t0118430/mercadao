@@ -312,3 +312,4 @@
 2024-07-22T06:43:07.000Z {'count': 1, 'orders': [{'id': 2978005, 'identifier': 86630992973476, 'pickingLocationId': '5f0872fe13f8790049047a2c', 'pickingLocationName': 'Pingo Doce Valongo ', 'selectedTimeSlot': {'date': '2024-07-22T00:00:00.000Z', 'startTimeInMinutes': 1140, 'endTimeInMinutes': 1170}, 'deliverySlotDate': '2024-07-22T00:00:00.000Z', 'timezone': 'Europe/Lisbon', 'totalItems': 38}]} 
 2024-07-22T06:48:39.000Z Não tem 
 2024-07-22T06:53:47.000Z Não tem 
+2024-07-22T06:58:59.000Z Não tem 
