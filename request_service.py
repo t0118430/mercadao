@@ -21,7 +21,7 @@ def fetch_orders(setup):
         request_log(response_login.status_code, "login")
 
         data = response_login.json()
-
+        print(data["id"])
         headers_available["authorization"] = data["id"]
 
         #resquest
