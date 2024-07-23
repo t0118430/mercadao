@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - development
+      - fix*
+      - feat*
   workflow_dispatch:
 
 jobs:
