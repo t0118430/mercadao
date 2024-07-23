@@ -484,3 +484,4 @@
 2024-07-23T08:57:17.000Z {'count': 1, 'orders': [{'id': 2979491, 'identifier': 50815532974958, 'pickingLocationId': '5f0f80ec908f28003ddc61a6', 'pickingLocationName': 'Pingo Doce Lordelo', 'selectedTimeSlot': {'date': '2024-07-24T00:00:00.000Z', 'startTimeInMinutes': 720, 'endTimeInMinutes': 750}, 'deliverySlotDate': '2024-07-24T00:00:00.000Z', 'timezone': 'Europe/Lisbon', 'totalItems': 42}]} 
 2024-07-23T09:10:54.000Z {'count': 1, 'orders': [{'id': 2979491, 'identifier': 50815532974958, 'pickingLocationId': '5f0f80ec908f28003ddc61a6', 'pickingLocationName': 'Pingo Doce Lordelo', 'selectedTimeSlot': {'date': '2024-07-24T00:00:00.000Z', 'startTimeInMinutes': 720, 'endTimeInMinutes': 750}, 'deliverySlotDate': '2024-07-24T00:00:00.000Z', 'timezone': 'Europe/Lisbon', 'totalItems': 42}]} 
 2024-07-23T09:25:09.000Z Não tem 
+2024-07-23T09:30:17.000Z Não tem 
