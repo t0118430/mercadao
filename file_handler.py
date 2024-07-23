@@ -10,10 +10,10 @@ def clear_file_content(file_path):
         # Opening a file in 'w' mode truncates the file and overwrites its content with nothing.
         pass   
 
-def print_logs(data):
-    with open('results.log', 'a') as file:
+def print_to_file(filename, data):
+    with open(filename, 'a') as file:
         file.write(f"{datetime.now().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {data}\n")
 
-def read_file():
-    with open("order_track.txt", 'r') as file:
-        return file.readlines()        
+def read_file(filename):
+    with open(filename, 'r') as file:
+        return file.readlines()

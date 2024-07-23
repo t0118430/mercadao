@@ -1,4 +1,4 @@
-from file_handler import print_logs, clear_file_content, write_to_file, read_file
+from file_handler import print_to_file, clear_file_content, write_to_file, read_file
 from notifier import send_notification
 import sys
 
@@ -9,14 +9,14 @@ def process_orders(data, topic):
             orders = []
             flag = 0
 
-            lines = read_file()
+            lines = read_file("order_track.txt")
 
             if lines.count != 0:
                 current_orders = [int(line.strip()) for line in lines]
             print("Current orders:", current_orders)
 
             for item in data['orders']:  
-                order_id = item['identifier']  
+                order_id = item['identifier']
                 orders.append(order_id)
                 print(f"Processing order {order_id}...")
                 if order_id not in current_orders:
@@ -26,9 +26,9 @@ def process_orders(data, topic):
             if flag == 1:
                 print("Sending notification....")
                 send_notification(topic)
-                print_logs("Sent notification....")
+                print_to_file("results.log","Sent notification....")
             else:
-                print_logs("Notification already sent....")
+                print_to_file("results.log","Notification already sent....")
 
             clear_file_content('order_track.txt')
             orders_to_keep = [order for order in orders if order in current_orders]
@@ -38,5 +38,5 @@ def process_orders(data, topic):
             print(f"Failed to process orders: {e}")
             sys.exit(1)
     else:
-        print_logs("Não tem.")
+        print_to_file("results.log","Não tem.")
         print("Não tem")        
