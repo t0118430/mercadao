@@ -2,10 +2,14 @@ from configuration import Configuration
 from specs import payload_login, headers_login, headers_available
 import requests
 from log_handler import request_log
+from file_handler import read_file, clear_file_content, write_to_file
 
 #TODO break this method
 def fetch_orders(setup):
-    headers_available["authorization"] = setup.token
+
+    token = read_file("token.txt")
+
+    headers_available["authorization"] = token[0].strip()
 
     #resquest
     response = requests.request("GET", setup.url_available, headers=headers_available)
@@ -14,6 +18,7 @@ def fetch_orders(setup):
 
     if response.status_code == 401:
         print("Token expired....")
+        clear_file_content("token.txt")
         payload = payload_login.replace("$USERNAME", setup.username).replace("$PASSWORD", setup.password)
 
         #request
@@ -21,6 +26,8 @@ def fetch_orders(setup):
         request_log(response_login.status_code, "login")
 
         data = response_login.json()
+        
+        write_to_file("token.txt", list([data["id"]]))
         
         headers_available["authorization"] = data["id"]
 
