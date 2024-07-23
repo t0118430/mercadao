@@ -12,10 +12,8 @@ def clear_file_content(file_path):
 
 def print_logs(data):
     with open('results.log', 'a') as file:
-        file.write(f"{datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {data}\n")
+        file.write(f"{datetime.now().strftime('%Y-%m-%dT%H:%M:%S.000Z')} {data}\n")
 
 def read_file():
     with open("order_track.txt", 'r') as file:
-        lines = file.readlines()       
-    return lines  
-        
+        return file.readlines()        
