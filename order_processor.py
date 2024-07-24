@@ -30,13 +30,13 @@ def process_orders(data, topic):
             else:
                 print_to_file("results.log","Notification already sent....")
 
-            clear_file_content('order_track.txt')
+            clear_file_content("order_track.txt")
             orders_to_keep = [order for order in orders if order in current_orders]
             print("Orders to keep:", orders_to_keep)
-            write_to_file('order_track.txt', orders_to_keep)
+            write_to_file("order_track.txt", orders_to_keep)
         except Exception as e:
             print(f"Failed to process orders: {e}")
             sys.exit(1)
     else:
         print_to_file("results.log","Não tem.")
-        print("Não tem")        
+        print("Não tem")
