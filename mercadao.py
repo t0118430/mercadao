@@ -1,31 +1,20 @@
-import requests
-from specs import payload_login, headers_login, headers_available
 from order_processor import process_orders
 from configuration import Configuration
-from log_handler import request_log
+from request_service import fetch_orders
+
 
 def mercadao():
-    setup = Configuration()
+    try:
 
-    payload = payload_login.replace("$USERNAME", setup.username).replace("$PASSWORD", setup.password)
+        setup = Configuration()
+    
+        print("dentro do mercadao")
 
-    #request
-    response_login = requests.request("POST", setup.url, headers=headers_login, data=payload)
+        data = fetch_orders(setup)
 
-    # Check if the page is accessible
-    request_log(response_login.status_code, "login")
+        print("a seguir ao primeiro request")
 
-    data = response_login.json()
-
-    headers_available["authorization"] = data["id"]
-    #resquest
-    response = requests.request("GET", setup.url_available, headers=headers_available)
-
-    request_log(response_login.status_code, "fetch_records")
-
-    #pass to method
-    data = response.json()
-
-    process_orders(data, setup.topic)
-
+        process_orders(data, setup.topic)
+    except Exception as e:
+        print(f"Error {e}")
 mercadao()
