@@ -28,3 +28,4 @@ def read_file(filename):
     filename = resolve_path(filename)
     with open(filename, 'r') as file:
         return file.readlines()
+
